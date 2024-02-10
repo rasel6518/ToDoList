@@ -47,7 +47,7 @@ const AddTask = () => {
                         placeholder="Add title"
                         value={newTaskTitle}
                         onChange={handleTitle}
-                        className=" block border p-2"
+                        className=" block border p-2 w-80"
                     />
                     <textarea
                         type="text"
@@ -55,12 +55,12 @@ const AddTask = () => {
                         placeholder="Add a new task..."
                         value={newTaskDesc}
                         onChange={handleDesc}
-                        className=" block border p-2"
+                        className=" block border p-2 w-80"
                     />
                     <select
                         value={newTaskPriority}
                         onChange={handlePriorityChange}
-                        className="block ml-2 p-2"
+                        className="block ml-2 p-2 w-80"
                     >
                         <option value="low">Low Priority</option>
                         <option value="medium">Medium Priority</option>
