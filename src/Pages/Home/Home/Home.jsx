@@ -1,9 +1,11 @@
+import TodoList from "../../../Components/TodoList/TodoList";
 
 
 const Home = () => {
     return (
-        <div className="">
-            <h1>this is home</h1>
+        <div className="min-h-screen ">
+
+            <TodoList />
 
         </div>
     );
