@@ -7,14 +7,18 @@ import {
 } from "react-router-dom";
 
 import { Router } from './Router/Router';
+import { DataProvider } from './DataProvider/DataProvider';
 
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div className=" max-w-7xl mx-auto ">
-      <RouterProvider router={Router} />
-    </div>
+    <DataProvider>
+      <div className=" max-w-7xl mx-auto ">
+        <RouterProvider router={Router} />
+      </div>
+    </DataProvider>
+
   </React.StrictMode>,
 )
