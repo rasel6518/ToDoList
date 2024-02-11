@@ -53,7 +53,9 @@ const TodoList = () => {
 
                     <PriorityFilter filterPriority={filterPriority} setFilterPriority={setFilterPriority} />
                 </div>
-
+                {tasks.length === 0 && (
+                    <p className="flex justify-center text-xl items-center text-black  mt-4">No tasks found. Start adding tasks to stay organized!</p>
+                )}
 
                 <div className="grid px-5 md:px-0 md:grid-cols-2 my-5 py-5 gap-5 lg:grid-cols-3">
                     {tasks
