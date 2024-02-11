@@ -1,12 +1,14 @@
-import { useContext, useState } from "react";
-import { DataContext } from "../../DataProvider/DataProvider";
+import { useState } from "react";
 import { AiFillDelete, AiFillEdit, AiFillSave } from "react-icons/ai";
 import Counter from "../Counter/Counter";
+import PriorityFilter from "../PriorityFilter/PriorityFilter";
+import useTask from "../../Hooks/useTask";
 
 const TodoList = () => {
-    const [tasks, setTasks] = useContext(DataContext);
+    const [tasks, setTasks] = useTask();
     const [isTodoEditable, setIsTodoEditable] = useState(false);
     const [editedTask, setEditedTask] = useState({ id: null, title: "", desc: "" });
+    const [filterPriority, setFilterPriority] = useState("all");
     const toggleTaskStatus = (taskId) => {
         const updatedTasks = tasks.map((task) =>
             task.id === taskId
@@ -38,83 +40,93 @@ const TodoList = () => {
             <div className="  ">
 
                 {/* counter section */}
-                <Counter />
+
+                <div className="md:flex justify-between items-center md:px-10">
+                    <Counter />
+
+                    {/* Priority filter  section */}
+
+                    <PriorityFilter filterPriority={filterPriority} setFilterPriority={setFilterPriority} />
+                </div>
+
 
                 <div className="grid px-5 md:px-0 md:grid-cols-2 my-5 py-5 gap-5 lg:grid-cols-3">
-                    {tasks.map((task) => (
-                        <div key={task.id} className="bg-emerald-200  py-5 px-2">
-                            <h1 className='text-xl px-5 capitalize mb-3 font-medium'>
+                    {tasks
+                        .filter((task) => filterPriority === "all" || task.priority === filterPriority)
+                        .map((task) => (
+                            <div key={task.id} className="bg-emerald-200  py-5 px-2">
 
-                                {/* Task Title */}
+                                {/* Task Title Section */}
 
-                                {isTodoEditable && editedTask.id === task.id ? (
-                                    <input
-                                        type="text"
-                                        value={editedTask.title}
-                                        onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
-                                        className="w-60 md:w-80 "
-                                    />
-                                ) : (
-                                    task.title
-                                )}
-                            </h1>
+                                <h1 className='text-xl px-5 capitalize mb-3 font-medium'>
+                                    {isTodoEditable && editedTask.id === task.id ? (
+                                        <input
+                                            type="text"
+                                            value={editedTask.title}
+                                            onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
+                                            className="w-60 md:w-80 "
+                                        />
+                                    ) : (
+                                        task.title
+                                    )}
+                                </h1>
 
-                            {/* Task Description */}
+                                {/* Task Description Section */}
 
-                            <div className="w-60 md:w-80  px-5">
-                                {isTodoEditable && editedTask.id === task.id ? (
-                                    <textarea
-                                        value={editedTask.desc}
-                                        onChange={(e) => setEditedTask({ ...editedTask, desc: e.target.value })}
-                                        className="w-60 md:w-80 "
-                                    />
-                                ) : (
-                                    task.desc
-                                )}
-                            </div>
-
-                            {/* Task Status Section */}
-
-                            <div className="w-64 md:96 mt-5 flex justify-evenly items-center gap-2">
-                                <button
-                                    onClick={() => toggleTaskStatus(task.id)}
-                                    className={`cursor-pointer btn capitalize font-bold ${task.status === 'completed' ? 'text-green-600' : 'text-red-600'}`}
-                                >
-                                    {task.status}
-                                </button>
-
-                                {/* Task Priority Seciton */}
-
-                                <div className={`capitalize font-bold text-${task.priority}`}>
-                                    {task.priority}
+                                <div className="w-60 md:w-80  px-5">
+                                    {isTodoEditable && editedTask.id === task.id ? (
+                                        <textarea
+                                            value={editedTask.desc}
+                                            onChange={(e) => setEditedTask({ ...editedTask, desc: e.target.value })}
+                                            className="w-60 md:w-80 "
+                                        />
+                                    ) : (
+                                        task.desc
+                                    )}
                                 </div>
-                                <div className="flex justify-between gap-2">
 
-                                    {/* Task Edit and Save Seciton */}
+                                {/* Task Status Toggle Section */}
 
+                                <div className="w-64 md:96 mt-5 flex justify-evenly items-center gap-2">
                                     <button
-                                        className="text-xl"
-                                        onClick={() => {
-                                            if (task.completed) return;
-
-                                            if (isTodoEditable) {
-                                                saveEditedTask();
-                                            } else {
-                                                editTask(task.id);
-                                            }
-                                        }}
-                                        disabled={task.completed}
+                                        onClick={() => toggleTaskStatus(task.id)}
+                                        className={`cursor-pointer btn capitalize font-bold ${task.status === 'completed' ? 'text-green-600' : 'text-red-600'}`}
                                     >
-                                        {isTodoEditable && editedTask.id === task.id ? <AiFillSave /> : <AiFillEdit />}
+                                        {task.status}
                                     </button>
 
-                                    {/* Task Delete Seciton */}
+                                    {/* Task Priority Section */}
 
-                                    <AiFillDelete onClick={() => deleteTask(task.id)} className="text-xl "></AiFillDelete>
+                                    <div className={`capitalize font-bold text-${task.priority}`}>
+                                        {task.priority}
+                                    </div>
+
+                                    {/* Task Edit and Save Section */}
+
+                                    <div className="flex justify-between gap-2">
+                                        <button
+                                            className="text-xl"
+                                            onClick={() => {
+                                                if (task.completed) return;
+
+                                                if (isTodoEditable) {
+                                                    saveEditedTask();
+                                                } else {
+                                                    editTask(task.id);
+                                                }
+                                            }}
+                                            disabled={task.completed}
+                                        >
+                                            {isTodoEditable && editedTask.id === task.id ? <AiFillSave /> : <AiFillEdit />}
+                                        </button>
+
+                                        {/* Task Delete Section */}
+
+                                        <AiFillDelete onClick={() => deleteTask(task.id)} className="text-xl "></AiFillDelete>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             </div>
         </div>

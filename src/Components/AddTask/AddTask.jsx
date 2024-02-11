@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { DataContext } from '../../DataProvider/DataProvider';
+import useTask from '../../Hooks/useTask';
 
 const AddTask = () => {
-    const [tasks, setTasks] = useContext(DataContext);
+    const [tasks, setTasks] = useTask();
     const [newTaskTitle, setNewTaskTitle] = useState('');
     const [newTaskDesc, setNewTaskDesc] = useState('');
     const [newTaskPriority, setNewTaskPriority] = useState('low');
@@ -41,13 +41,13 @@ const AddTask = () => {
 
             <div className="">
                 <h2 className="text-3xl font-bold mb-4">Todo List</h2>
-                <div className="mb-4 space-y-4">
+                <div className=" space-y-4">
                     <input
                         type="text"
                         placeholder="Add title"
                         value={newTaskTitle}
                         onChange={handleTitle}
-                        className=" block border p-2 w-80"
+                        className=" block border  p-2 w-80"
                     />
                     <textarea
                         type="text"
@@ -66,7 +66,7 @@ const AddTask = () => {
                         <option value="medium">Medium Priority</option>
                         <option value="high">High Priority</option>
                     </select>
-                    <button onClick={addTask} className="block ml-2 p-2 text-center bg-emerald-500 rounded text-white">
+                    <button onClick={addTask} className="block ml-2 px-3 py-2 text-center bg-emerald-500 rounded text-white">
                         Add Task
                     </button>
 

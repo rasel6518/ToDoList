@@ -6,7 +6,7 @@ const Counter = () => {
     const completedTasks = tasks.filter(task => task.status === 'completed').length;
     return (
         <div>
-            <div className="text-center mt-5 text-xl font-medium">
+            <div className="text-center md:flex gap-5 text-xl font-medium">
                 <p>Total Tasks: {totalTasks}</p>
                 <p>Completed Tasks: {completedTasks}</p>
             </div>
