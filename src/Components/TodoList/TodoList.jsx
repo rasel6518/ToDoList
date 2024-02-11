@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../DataProvider/DataProvider";
 import { AiFillDelete, AiFillEdit, AiFillSave } from "react-icons/ai";
+import Counter from "../Counter/Counter";
 
 const TodoList = () => {
     const [tasks, setTasks] = useContext(DataContext);
@@ -31,13 +32,21 @@ const TodoList = () => {
     const deleteTask = (taskId) => {
         setTasks(tasks.filter(task => task.id !== taskId));
     };
+
     return (
         <div>
             <div className="  ">
+
+                {/* counter section */}
+                <Counter />
+
                 <div className="grid px-5 md:px-0 md:grid-cols-2 my-5 py-5 gap-5 lg:grid-cols-3">
                     {tasks.map((task) => (
                         <div key={task.id} className="bg-emerald-200  py-5 px-2">
                             <h1 className='text-xl px-5 capitalize mb-3 font-medium'>
+
+                                {/* Task Title */}
+
                                 {isTodoEditable && editedTask.id === task.id ? (
                                     <input
                                         type="text"
@@ -49,6 +58,9 @@ const TodoList = () => {
                                     task.title
                                 )}
                             </h1>
+
+                            {/* Task Description */}
+
                             <div className="w-60 md:w-80  px-5">
                                 {isTodoEditable && editedTask.id === task.id ? (
                                     <textarea
@@ -60,6 +72,9 @@ const TodoList = () => {
                                     task.desc
                                 )}
                             </div>
+
+                            {/* Task Status Section */}
+
                             <div className="w-64 md:96 mt-5 flex justify-evenly items-center gap-2">
                                 <button
                                     onClick={() => toggleTaskStatus(task.id)}
@@ -67,10 +82,16 @@ const TodoList = () => {
                                 >
                                     {task.status}
                                 </button>
+
+                                {/* Task Priority Seciton */}
+
                                 <div className={`capitalize font-bold text-${task.priority}`}>
                                     {task.priority}
                                 </div>
                                 <div className="flex justify-between gap-2">
+
+                                    {/* Task Edit and Save Seciton */}
+
                                     <button
                                         className="text-xl"
                                         onClick={() => {
@@ -86,6 +107,9 @@ const TodoList = () => {
                                     >
                                         {isTodoEditable && editedTask.id === task.id ? <AiFillSave /> : <AiFillEdit />}
                                     </button>
+
+                                    {/* Task Delete Seciton */}
+
                                     <AiFillDelete onClick={() => deleteTask(task.id)} className="text-xl "></AiFillDelete>
                                 </div>
                             </div>
