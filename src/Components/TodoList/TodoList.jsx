@@ -3,6 +3,11 @@ import { AiFillDelete, AiFillEdit, AiFillSave } from "react-icons/ai";
 import Counter from "../Counter/Counter";
 import PriorityFilter from "../PriorityFilter/PriorityFilter";
 import useTask from "../../Hooks/useTask";
+const priorityColors = {
+    high: 'text-red-600',
+    medium: 'text-yellow-500',
+    low: 'text-green-400',
+};
 
 const TodoList = () => {
     const [tasks, setTasks] = useTask();
@@ -97,7 +102,7 @@ const TodoList = () => {
 
                                     {/* Task Priority Section */}
 
-                                    <div className={`capitalize font-bold text-${task.priority}`}>
+                                    <div title="Priority" className={`capitalize font-bold ${priorityColors[task.priority]}  `}>
                                         {task.priority}
                                     </div>
 
@@ -117,12 +122,12 @@ const TodoList = () => {
                                             }}
                                             disabled={task.completed}
                                         >
-                                            {isTodoEditable && editedTask.id === task.id ? <AiFillSave /> : <AiFillEdit />}
+                                            {isTodoEditable && editedTask.id === task.id ? <AiFillSave title="Save" /> : <AiFillEdit title="Edit" />}
                                         </button>
 
                                         {/* Task Delete Section */}
 
-                                        <AiFillDelete onClick={() => deleteTask(task.id)} className="text-xl "></AiFillDelete>
+                                        <AiFillDelete title="Delete" onClick={() => deleteTask(task.id)} className="text-xl "></AiFillDelete>
                                     </div>
                                 </div>
                             </div>
