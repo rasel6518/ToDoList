@@ -30,16 +30,7 @@ const NavBar = () => {
                 About
             </NavLink>
         </li>
-        <li>
-            <NavLink
-                to="/contact"
-                className={({ isActive, isPending }) =>
-                    isPending ? " bg-emerald-400" : isActive ? " text-xl font-semibold border-b-4 mr-2 border-emerald-600" : "mr-2 text-xl font-semibold"
-                }
-            >
-                Contact
-            </NavLink>
-        </li>
+
 
     </>
 
@@ -56,9 +47,9 @@ const NavBar = () => {
                         </button>
                     </div>
 
-                    <a className="text-3xl text-emerald-500 font-bold leading-none" href="#">
+                    <Link to='/' className="text-3xl text-emerald-500 font-bold leading-none" href="#">
                         ToDo App
-                    </a>
+                    </Link>
 
 
 

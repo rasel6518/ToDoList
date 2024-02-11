@@ -7,7 +7,7 @@ import {
 import Home from "../Pages/Home/Home/Home";
 import Root from "../Root/Root";
 import About from "../Pages/About/About";
-import Contact from "../Pages/Contact/Contact";
+
 
 export const Router = createBrowserRouter([
     {
@@ -22,10 +22,7 @@ export const Router = createBrowserRouter([
                 path: "/about",
                 element: <About />,
             },
-            {
-                path: "/contact",
-                element: <Contact />,
-            }
+
 
         ],
 
